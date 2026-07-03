@@ -1,0 +1,229 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ru">-->
+<!--<head>-->
+<!--<meta charset="UTF-8">-->
+<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--<script src="https://telegram.org/js/telegram-web-app.js"></script>-->
+<!--<style>-->
+
+<!--body {-->
+
+<!--    margin:0;-->
+<!--    background:#111827;-->
+<!--    color:white;-->
+<!--    font-family:Arial, sans-serif;-->
+<!--    padding:15px;-->
+
+<!--}-->
+
+<!--h1 {-->
+
+<!--    margin-bottom:20px;-->
+
+<!--}-->
+
+<!--.card {-->
+
+<!--    background:#1f2937;-->
+<!--    border-radius:20px;-->
+<!--    padding:20px;-->
+<!--    margin-bottom:15px;-->
+
+<!--}-->
+
+<!--.total {-->
+
+<!--    font-size:30px;-->
+<!--    font-weight:bold;-->
+
+<!--}-->
+
+<!--button {-->
+
+<!--    width:100%;-->
+<!--    padding:15px;-->
+<!--    margin-top:10px;-->
+
+<!--    border:none;-->
+<!--    border-radius:15px;-->
+
+<!--    background:#374151;-->
+<!--    color:white;-->
+
+<!--    font-size:16px;-->
+
+<!--}-->
+
+<!--.asset {-->
+
+<!--    background:#1f2937;-->
+<!--    border-radius:15px;-->
+<!--    padding:15px;-->
+<!--    margin-bottom:10px;-->
+
+<!--}-->
+
+<!--.name {-->
+
+<!--    font-size:18px;-->
+<!--    font-weight:bold;-->
+
+<!--}-->
+
+<!--.row {-->
+
+<!--    display:flex;-->
+<!--    justify-content:space-between;-->
+<!--    margin-top:8px;-->
+
+<!--}-->
+
+<!--.bar {-->
+
+<!--    height:8px;-->
+<!--    background:#374151;-->
+<!--    border-radius:10px;-->
+<!--    margin-top:10px;-->
+
+<!--}-->
+
+<!--.fill {-->
+
+<!--    height:100%;-->
+<!--    background:#22c55e;-->
+<!--    border-radius:10px;-->
+
+<!--}-->
+
+<!--</style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1 id="title">📊 Портфель</h1>-->
+<!--<div class="card">-->
+<!--<div>Капитал</div>-->
+<!--<div class="total" id="total"> Загрузка... </div>-->
+<!--</div>-->
+<!--<div id="accounts"></div>-->
+<!--<div id="portfolio"></div>-->
+<!--<script>-->
+<!--Telegram.WebApp.expand();-->
+<!--async function loadAccounts(){-->
+<!--    let res = await fetch("/accounts");-->
+<!--    let accounts = await res.json();-->
+<!--    let html="";-->
+<!--    html += `-->
+<!--    <button onclick="loadTotal()">-->
+<!--    🌍 Общий портфель-->
+<!--    </button>-->
+<!--    `;-->
+<!--    let total = 0;-->
+<!--    accounts.forEach(a=>{-->
+<!--        total += a.total;-->
+<!--        html += `-->
+<!--        <button onclick="loadAccount('${a.id}')">-->
+<!--        💼 ${a.name}-->
+<!--        <br>-->
+<!--        ${a.total.toLocaleString()} ₽-->
+<!--        </button>-->
+<!--        `;-->
+<!--    });-->
+<!--    document-->
+<!--    .getElementById("total")-->
+<!--    .innerHTML =-->
+<!--    total.toLocaleString()+" ₽";-->
+<!--    document-->
+<!--    .getElementById("accounts")-->
+<!--    .innerHTML = html;-->
+<!--}-->
+
+<!--async function loadTotal(){-->
+<!--    let res = await fetch("/portfolio");-->
+<!--    let data = await res.json();-->
+<!--    document-->
+<!--    .getElementById("portfolio")-->
+<!--    .innerHTML =-->
+<!--    "<h2>🌍 Общий портфель</h2>";-->
+<!--    drawAssets(-->
+<!--        data.items-->
+<!--    );-->
+<!--}-->
+
+<!--async function loadAccount(id){-->
+<!--    let res = await fetch(-->
+<!--        "/account/" + id-->
+<!--    );-->
+<!--    let data = await res.json();-->
+<!--    document-->
+<!--    .getElementById("total")-->
+<!--    .innerHTML =-->
+<!--    data.total.toLocaleString()+" ₽";-->
+<!--    drawAssets(-->
+<!--        data.items-->
+<!--    );-->
+<!--}-->
+
+<!--function drawPortfolio(data){-->
+<!--    document-->
+<!--    .getElementById("total")-->
+<!--    .innerHTML =-->
+<!--    data.total.toLocaleString()+" ₽";-->
+<!--    drawAssets(-->
+<!--        data.items-->
+<!--    );-->
+<!--}-->
+
+<!--function drawAssets(items){-->
+<!--    let html="";-->
+<!--    let total = 0;-->
+<!--    items.forEach(x=>{-->
+<!--        total += x.amount;-->
+<!--    });-->
+<!--    items.forEach(x=>{-->
+<!--        let share =-->
+<!--        x.amount / total * 100;-->
+<!--        html += `-->
+<!--        <div class="asset">-->
+<!--        <div class="name">-->
+<!--        ${x.name}-->
+<!--        (${x.ticker})-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--        <span>-->
+<!--        Количество-->
+<!--        </span>-->
+<!--        <b>-->
+<!--        ${x.quantity}-->
+<!--        </b>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--        <span>-->
+<!--        Стоимость-->
+<!--        </span>-->
+<!--        <b>-->
+<!--        ${x.amount.toLocaleString()} ₽-->
+<!--        </b>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--        <span>-->
+<!--        Доля-->
+<!--        </span>-->
+<!--        <b>-->
+<!--        ${share.toFixed(2)}%-->
+<!--        </b>-->
+<!--        </div>-->
+<!--        <div class="bar">-->
+<!--        <div class="fill"-->
+<!--        style="width:${share}%">-->
+<!--        </div>-->
+<!--        </div>-->
+<!--        </div>-->
+<!--        `;-->
+<!--    });-->
+<!--    document-->
+<!--    .getElementById("portfolio")-->
+<!--    .innerHTML = html;-->
+<!--}-->
+<!--loadAccounts();-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
